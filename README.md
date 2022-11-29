@@ -4,7 +4,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## HOW TO RUN IT 
 
-Clone the repository, go inside the project folder. Run `npm i` to install the needed packages. Then run `ng serve -- -open` to open the project inside your default browser.
+Clone the repository, go inside the project folder. Run `npm i` to install the needed packages. 
+Then run `ng serve -- -open` to open the project inside your default browser.
 
 ## Development server
 
