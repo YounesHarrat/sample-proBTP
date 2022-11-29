@@ -11,6 +11,8 @@ import DataLabelsPlugin from 'chartjs-plugin-datalabels';
 })
 export class BarchartNgComponent {
 
+  private ALPHABET: String = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
   chartType: String = 'bar';
@@ -25,16 +27,18 @@ export class BarchartNgComponent {
     interaction: {
       intersect: false,
     },
+    // indexAxis: 'y',
     // We use these empty structures as placeholders for dynamic theming.
     scales: {
       x: {
         stacked: true,
-        max: 100, 
+
       },
       y: {
         stacked: true,
         // minimum height of each square in the chart
-        min: 10, 
+        min: -100, 
+        max: 500,
       }
     },
     plugins: {
@@ -63,6 +67,7 @@ export class BarchartNgComponent {
       { data: [ 65, 59, 80, 81, 56, 55, 40 ], label: 'Series A' },
       { data: [ 28, 48, 40, 19, 86, 27, 90 ], label: 'Series B' },
       { data: [ 28, 48, 40, 19, 86, 27, 90 ], label: 'Series C' },
+      { data: [ 28, 48, 40, 19, 86, 27, 90 ], label: 'Series D' },
     ]
   };
 
@@ -98,11 +103,7 @@ export class BarchartNgComponent {
     this.barChartData.datasets.forEach(dataset => {
       for(let i = 0; i<dataset.data.length; i++) {
         let randomNum = dataset.data[i];
-        if (!this.barChartOptions?.scales) {
-          dataset.data[i] = 10;
-        } else {
-          dataset.data[i] = this.barChartOptions?.scales['y']?.min ? 10 : 0 ;
-        }
+        dataset.data[i] = 0;
       }
     });
     this.chart?.update();
@@ -111,12 +112,40 @@ export class BarchartNgComponent {
   public addData(): void {
     let data = this.barChartData;
     if (!data) return;
-    if (data.datasets.length > 0 && data.labels) {
+    if (data.datasets.length > 1 && data.labels) {
       data.labels?.push(data.labels[data.labels.length-1] as number +1)
-      for (let index = 0; index < data.datasets.length; ++index) {
-        data.datasets[index].data.push(this.getRandom(100));
+      for (let i = 0; i < data.datasets.length; i++) {
+        data.datasets[i].data.push(this.getRandom(100));
       }
     }
+    this.chart?.update();
+  }
+
+  public removeData(): void {
+    let data = this.barChartData;
+    if(!data) return;
+    if (data.datasets.length > 1 && data.labels) {
+      data.labels.pop();
+      data.datasets.forEach(dt => {
+        dt.data.pop();
+      })
+    }
+    this.chart?.update();
+  }
+
+  public addDataset(): void {
+    let data = this.barChartData;
+    let newDataset = {
+      label: 'Series ' + this.ALPHABET.charAt(data.datasets.length ),
+      data: data.datasets[0].data.map(num => num = this.getRandom(100)),
+    }
+    data.datasets.push(newDataset);
+    this.chart?.update();
+  }
+
+  public removeDataset(): void {
+    if (! (this.barChartData.datasets.length > 1) ) return;
+    this.barChartData.datasets.pop();
     this.chart?.update();
   }
 
