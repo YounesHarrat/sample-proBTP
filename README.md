@@ -7,6 +7,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 Clone the repository, go inside the project folder. Run `npm i` to install the needed packages. 
 Then run `ng serve -- -open` or `npm start` to open the project inside your default browser.
 
+Preview available here => https://sample-pro-btp.vercel.app/
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
