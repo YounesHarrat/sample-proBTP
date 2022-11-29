@@ -1,0 +1,33 @@
+<div>
+    <div class="flexBox">
+      <div class="chartBlock" >
+        <canvas #chart baseChart
+          [data]="barChartData"
+          [options]="barChartOptions"
+          [plugins]="barChartPlugins"
+          [type]="barChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)">
+        </canvas>
+      </div>
+      <div class="cta">
+        <div class="cta-row">
+          <p> Values </p>
+          <button mat-ripple mat-button mat-raised-button color="primary" (click)="reset()">Reset</button>
+          <button mat-ripple mat-button mat-raised-button color="primary" (click)="randomize()">Randomize</button>
+        </div>
+        <hr>
+        <div class="cta-row">
+          <p> Types </p>
+          <button mat-ripple mat-button mat-raised-button color="primary" (click)="typeSwitch('line')">Stacked Lines</button>
+          <button mat-ripple mat-button mat-raised-button color="primary" (click)="typeSwitch('bar')">Stacked Bars</button>
+        </div>
+        <hr>
+        <div class="cta-row">
+          <p> Data </p>
+          <button mat-ripple mat-button mat-raised-button color="primary" (click)="addData()">Add Data</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
